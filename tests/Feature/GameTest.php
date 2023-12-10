@@ -43,7 +43,12 @@ class GameTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $game = Game::factory()->create([
+        $endedGame = Game::factory()->create([
+            'user_id' => $user->id,
+            'score' => 850,
+        ]);
+
+        $gameToBeEnded = Game::factory()->create([
             'user_id' => $user->id,
             'score' => 0,
         ]);
@@ -51,19 +56,22 @@ class GameTest extends TestCase
         $finalScore = 800;
 
         $payload = [
-            'game_id' => $game->id,
+            'game_id' => $gameToBeEnded->id,
             'user_id' => $user->id,
             'user_score' => $finalScore,
         ];
 
         $this->postJson($this->endpoint . 'end', $payload)
             ->assertStatus(200)
-            ->assertSee([
-                '800',
+            ->assertJson([
+                'data' => [
+                    'userPosition' => 1,
+                    'bestScore' => 850,
+                ],
             ]);
 
         $this->assertDatabaseHas('games', [
-            'id' => $game->id,
+            'id' => $gameToBeEnded->id,
             'score' => $finalScore,
         ]);
     }

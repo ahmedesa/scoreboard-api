@@ -15,4 +15,11 @@ class GameRepository
             ->limit(10)
             ->get();
     }
+
+    public function getCurrentDayRankingForScore(int $score): int
+    {
+        return Game::where('created_at', now()->toDateString())
+            ->where('score', '>', $score)
+            ->count() + 1;
+    }
 }

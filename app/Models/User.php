@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Game::class);
     }
+
+    public function bestScoreToday(): int
+    {
+        return $this->games()->max('score');
+    }
 }

@@ -29,9 +29,9 @@ class GameController extends Controller
 
     public function end(EndGameRequest $request): JsonResponse
     {
-        $game = $this->endGame->execute($request);
+        $gameResult = $this->endGame->execute($request);
 
-        return $this->responseSuccess(null, new GameResource($game));
+        return $this->responseSuccess(null, $gameResult);
     }
 
     public function topGamesForToday(): AnonymousResourceCollection

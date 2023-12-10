@@ -4,11 +4,16 @@ namespace App\Actions\Game;
 
 use App\Http\Requests\Game\EndGameRequest;
 use App\Models\Game;
+use App\Repositories\GameRepository;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class EndGame
 {
-    public function execute(EndGameRequest $request): Game
+    public function __construct(private readonly GameRepository $gameRepository)
+    {
+    }
+
+    public function execute(EndGameRequest $request): array
     {
         $game = Game::where('id', $request->game_id)
             ->where('user_id', $request->user_id)
@@ -22,6 +27,11 @@ class EndGame
             'score' => $request->user_score,
         ]);
 
-        return $game;
+        $userPosition = $this->gameRepository
+            ->getCurrentDayRankingForScore($request->user_score);
+
+        $bestScore = $game->user->bestScoreToday();
+
+        return compact('userPosition', 'bestScore');
     }
 }
