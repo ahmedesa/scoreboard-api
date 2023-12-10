@@ -11,8 +11,8 @@ class StartGame
     public function execute(StartGameRequest $request): Game
     {
         $user = User::factory()->create([
-            'first_name' => $request->user_name,
-            'last_name' => $request->user_first_name,
+            'first_name' => $request->user_first_name,
+            'last_name' => $request->user_last_name,
             'email' => $request->user_email,
         ]);
 

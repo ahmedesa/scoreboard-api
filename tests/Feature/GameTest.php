@@ -18,8 +18,8 @@ class GameTest extends TestCase
     public function itCanStartAGame()
     {
         $payload = [
-            'user_name' => 'John',
-            'user_first_name' => 'Doe',
+            'user_first_name' => 'John',
+            'user_last_name' => 'Doe',
             'user_email' => 'john.doe@example.com',
         ];
 
@@ -28,8 +28,8 @@ class GameTest extends TestCase
 
         $this->assertDatabaseHas($this->usersTable, [
             'email' => $payload['user_email'],
-            'first_name' => $payload['user_name'],
-            'last_name' => $payload['user_first_name'],
+            'first_name' => $payload['user_first_name'],
+            'last_name' => $payload['user_last_name'],
         ]);
 
         $this->assertDatabaseHas($this->gamesTable, [
