@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create()->each(function (User $user) {
             Game::factory()->create([
-                'user_id' => $user->id
+                'user_id' => $user->id,
             ]);
         });
     }
