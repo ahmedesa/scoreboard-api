@@ -7,6 +7,7 @@
 - [Installation](#installation)
 - [API Endpoints](#api-endpoints)
 - [Testing](#testing)
+- [Project Structure](#Project Structure)
 
 
 ## Technology Stack
@@ -198,3 +199,37 @@ These endpoints are prefixed with `games`.
 ## Testing
 
 Run tests using make: `make test`
+
+### Project Structure
+
+```
+.
+├── app
+│   ├── Actions
+│   │   ├── Game
+│   │   │   ├── StartGame.php   # Action to start a game
+│   │   │   ├── EndGame.php     # Action to end a game
+│   │   │   └── ...                   # Other game related actions
+│   │   └── ...                       # Other actions
+│   └── Http
+│       ├── Controllers
+│       │   ├── GameController.php    # Handles the game processes
+│       │   └── ...                   # Other controllers
+│       ├── Requests
+│       │   ├── Game
+│       │   │   ├── StartGameRequest.php  # Request for starting a game
+│       │   │   ├── EndGameRequest.php    # Request for ending a game
+│       │   │   └── ...                   # Other game related requests
+│       │   └── ...                       # Other requests
+│       ├── Resources
+│       │   ├── Game
+│       │   │   ├── GameResource.php       # Resource for single Game
+│       │   └── ...                        # Other resources
+│       └── ...
+├── routes
+│   └── api.php                 # Defines API routes for games
+├── tests
+│   ├── Feature
+│   │   ├── GameTest.php       # Tests for the game
+└── ...
+```
