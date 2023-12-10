@@ -15,3 +15,12 @@ fix:
 	$(docker_compose) exec $(php_container) sh -c 'composer fix'
 check:
 	$(docker_compose) exec $(php_container) sh -c 'composer check'
+
+setup:
+	cp .env.example .env
+	echo "UID=`id -u`" >> .env
+	cp docker/mysql/.env.example docker/mysql/.env
+	$(docker_compose) up -d
+	$(docker_compose) exec $(php_container) sh -c "composer install"
+	$(docker_compose) exec $(php_container) sh -c "php artisan key:generate"
+	$(docker_compose) exec $(php_container) sh -c "php artisan migrate --seed"
