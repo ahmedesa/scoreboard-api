@@ -90,4 +90,44 @@ class GameTest extends TestCase
             ->assertStatus(422);
 
     }
+
+    /**
+     * @test
+     */
+    public function itCanGetTopUsersForTheDay()
+    {
+        $today = now()->toDateString();
+
+        $userWithHighestScore = User::factory()->create();
+
+        Game::factory()->create([
+            'user_id' => $userWithHighestScore->id,
+            'score' => 1000,
+            'created_at' => $today,
+        ]);
+
+        User::factory(15)
+            ->create()
+            ->each(function (User $user) use ($today) {
+                Game::factory()->create([
+                    'user_id' => $user->id,
+                    'score' => rand(0, 1000),
+                    'created_at' => $today,
+                ]);
+            });
+
+        $this->getJson($this->endpoint . 'top-10-games')
+            ->assertStatus(200)
+            ->assertJsonCount(10, 'data')
+            ->assertJson([
+                'data' => [
+                    0 => [
+                        'user' => [
+                            'id' => $userWithHighestScore->id,
+                        ],
+                        'score' => 1000,
+                    ],
+                ],
+            ]);
+    }
 }

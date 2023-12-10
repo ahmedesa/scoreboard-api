@@ -20,10 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 /*==========================================
-=         follows          =
+=         games          =
 ==========================================*/
 Route::group(['prefix' => 'games'], function () {
     Route::post('start', [GameController::class, 'start']);
     Route::post('end', [GameController::class, 'end']);
+    Route::get('top-10-games', [GameController::class, 'topGamesForToday']);
 });
-/*=====     End of follows       ======*/
+/*=====     End of games       ======*/
