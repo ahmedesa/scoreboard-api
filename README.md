@@ -2,12 +2,12 @@
 
 #### Table of Contents
 
-- [Technology Stack](#Technology Stack)
+- [Technology Stack](#Technology-Stack)
 - [Requirements](#Requirements)
 - [Installation](#installation)
 - [API Endpoints](#api-endpoints)
 - [Testing](#testing)
-- [Project Structure](#Project Structure)
+- [Project Structure](#Project-Structure)
 
 
 ## Technology Stack
