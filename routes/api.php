@@ -24,5 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 ==========================================*/
 Route::group(['prefix' => 'games'], function () {
     Route::post('start', [GameController::class, 'start']);
+    Route::post('end', [GameController::class, 'end']);
 });
 /*=====     End of follows       ======*/

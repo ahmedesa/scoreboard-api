@@ -19,4 +19,9 @@ class Game extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function isEnded(): bool
+    {
+        return $this->score > 0;
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Game;
+use App\Models\User;
 use Tests\TestCase;
 
 class GameTest extends TestCase
@@ -34,5 +36,58 @@ class GameTest extends TestCase
             'user_id' => 1,
             'score' => 0,
         ]);
+    }
+
+    /** @test */
+    public function itCanEndAGame()
+    {
+        $user = User::factory()->create();
+
+        $game = Game::factory()->create([
+            'user_id' => $user->id,
+            'score' => 0,
+        ]);
+
+        $finalScore = 800;
+
+        $payload = [
+            'game_id' => $game->id,
+            'user_id' => $user->id,
+            'user_score' => $finalScore,
+        ];
+
+        $this->postJson($this->endpoint . 'end', $payload)
+            ->assertStatus(200)
+            ->assertSee([
+                '800',
+            ]);
+
+        $this->assertDatabaseHas('games', [
+            'id' => $game->id,
+            'score' => $finalScore,
+        ]);
+    }
+
+    /** @test */
+    public function itCantEndAGameTwice()
+    {
+        $user = User::factory()->create();
+
+        $game = Game::factory()->create([
+            'user_id' => $user->id,
+            'score' => 100,
+        ]);
+
+        $finalScore = 800;
+
+        $payload = [
+            'game_id' => $game->id,
+            'user_id' => $user->id,
+            'user_score' => $finalScore,
+        ];
+
+        $this->postJson($this->endpoint . 'end', $payload)
+            ->assertStatus(422);
+
     }
 }
