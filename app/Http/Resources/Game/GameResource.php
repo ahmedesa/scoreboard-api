@@ -17,6 +17,7 @@ class GameResource extends JsonResource
         return [
             'id' => $this->id,
             'score' => $this->score,
+            'user_id' => $this->user_id,
             'user' => $this->whenLoaded('user', fn (): array => [
                 'id' => $this->user->id,
                 'first_name' => $this->user->first_name,
