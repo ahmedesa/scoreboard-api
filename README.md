@@ -56,7 +56,8 @@ These endpoints are prefixed with `games`.
     "message": null,
     "data": {
         "id": 1,
-        "score": null
+        "score": null,
+        "user_id": 1,
     }
 }
 
