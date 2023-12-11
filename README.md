@@ -25,7 +25,7 @@
 
 1. Clone the repository: `git clone https://github.com/ahmedesa/scoreboard-api`
 2. Change to the directory: `cd scoreboard-api`
-3. Build the project using make: `make install`
+3. Build the project using make: `make setup`
 4. Visit `localhost:8080` in your browser
 
 ## API Endpoints
